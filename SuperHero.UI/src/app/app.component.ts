@@ -11,6 +11,7 @@ export class AppComponent {
   title = 'SuperHero.UI';
   heroes: SuperHero[] = [];
   heroToEdit?: SuperHero;
+  columnsToDisplay = ['name', 'firstName', 'lastName', 'place', 'button'];
 
   constructor(private superHeroService: SuperHeroService) {}
 

@@ -1,25 +1,63 @@
-<button (click)="initNewHero()">Create New Hero</button>
+<mat-card>
+  <button mat-stroked-button color="primary" (click)="initNewHero()">
+    Create New Hero
+  </button>
 
-<table>
-  <thead>
-    <th>Name</th>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Place</th>
-    <th></th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let hero of heroes">
-      <td>{{ hero.name }}</td>
-      <td>{{ hero.firstName }}</td>
-      <td>{{ hero.lastName }}</td>
-      <td>{{ hero.place }}</td>
-      <td><button (click)="editHero(hero)">Edit</button></td>
-    </tr>
-  </tbody>
-</table>
+  <table mat-table [dataSource]="heroes">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let hero">{{ hero.name }}</td>
+    </ng-container>
 
-<app-edit-hero
-  [hero]="heroToEdit"
-  (heroesUpdated)="updateHeroList($event)"
-></app-edit-hero>
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef>First Name</th>
+      <td mat-cell *matCellDef="let hero">{{ hero.firstName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef>Last Name</th>
+      <td mat-cell *matCellDef="let hero">{{ hero.lastName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="place">
+      <th mat-header-cell *matHeaderCellDef>Place</th>
+      <td mat-cell *matCellDef="let hero">{{ hero.place }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="button">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let hero">
+        <button mat-button color="primary" (click)="editHero(hero)">
+          Edit
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+  </table>
+
+  <!-- <table>
+    <thead>
+      <th>Name</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Place</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let hero of heroes">
+        <td>{{ hero.name }}</td>
+        <td>{{ hero.firstName }}</td>
+        <td>{{ hero.lastName }}</td>
+        <td>{{ hero.place }}</td>
+        <td><button (click)="editHero(hero)">Edit</button></td>
+      </tr>
+    </tbody>
+  </table> -->
+
+  <app-edit-hero
+    [hero]="heroToEdit"
+    (heroesUpdated)="updateHeroList($event)"
+  ></app-edit-hero>
+</mat-card>
